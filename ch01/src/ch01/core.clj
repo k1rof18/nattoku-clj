@@ -28,4 +28,7 @@
   (println (word-score-ans "imperative"))
   (println (word-score-ans "no"))
   (println (word-score-ans "declarative"))
-  (println (word-score-ans "yes")))
+  (println (word-score-ans "yes"))
+  (println "")
+  (println (inc 1))
+  (println (get "abc" 0)))
