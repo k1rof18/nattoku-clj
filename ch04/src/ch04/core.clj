@@ -31,7 +31,35 @@
   [texts]
   (sort-by #(word-score %) > texts))
 
+(defn more-than-1
+  [texts]
+  (into {}
+        (filter #(> (second %) 1)
+                (zipmap texts (map word-score texts)))))
+
+
 (defn -main
   ""
   [& args]
-  (println (sort-by-score ["ada" "haskell" "scala" "java" "rust"])))
+  (println (sort-by-score ["ada" "haskell" "scala" "java" "rust"]))
+  (println (more-than-1 ["ada" "haskell" "scala" "java" "rust"]))
+  ;; (println ((create-more-than-n 1 word-score) ["ada" "haskell" "scala" "java" "rust"]))
+  )
+
+;; 高階関数
+
+;; (defn create-filter-fn [threshold]
+;;   (fn [[_ score]]
+;;     (> score threshold)))
+
+;; (defn filter-scores [filter-fn]
+;;   (fn [score-map]
+;;     (into {} (filter filter-fn score-map))))
+
+;; (defn create-score-map [score-fn]
+;;   (fn [texts]
+;;     (zipmap texts (map score-fn texts))))
+
+;; (defn create-more-than-n [threshold score-fn]
+;;   (comp (filter-scores (create-filter-fn threshold))
+;;         (create-score-map score-fn)))
