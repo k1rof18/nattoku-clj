@@ -37,14 +37,19 @@
         (filter #(> (second %) 1)
                 (zipmap texts (map word-score texts)))))
 
+;; (defn scores [texts] (reduce + #(word-score %) texts))
+
+;; foldleft的な
+(defn scores
+  [texts]
+  (reduce (fn [acc %] (+ acc (word-score %))) 0 texts))
 
 (defn -main
   ""
   [& args]
   (println (sort-by-score ["ada" "haskell" "scala" "java" "rust"]))
   (println (more-than-1 ["ada" "haskell" "scala" "java" "rust"]))
-  ;; (println ((create-more-than-n 1 word-score) ["ada" "haskell" "scala" "java" "rust"]))
-  )
+  (println (scores ["ada" "haskell" "scala" "java" "rust" "go"])))
 
 ;; 高階関数
 
