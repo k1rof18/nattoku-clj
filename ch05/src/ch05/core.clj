@@ -1,6 +1,8 @@
 (ns ch05.core
   (:gen-class))
 
+(require '[clojure.string :as strs])
+
 (def book-list
   [{:title "すごい本" :authors ["A" "B" "C"]}
    {:title "いい本" :authors ["A"]}
@@ -21,6 +23,9 @@
 (defn book-authors [l]
   (into #{} (mapcat :authors) l))
 
+(defn recommend-msg
+  [movies]
+  (map #(% :title) (flatten movies)))
 
 (defn -main
   "Prints movies by authors of books in the book-list."
@@ -29,5 +34,5 @@
        (book-authors)
        (map get-movie-by-author)
        (remove empty?)
+       (recommend-msg)
        (run! println)))
-
